@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viitor cu adresă în Vaslui</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1240a8;
+    --primary-light: #e8f0ff;
+    --accent: #f59e0b;
+    --accent-dark: #d97706;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --teal: #14b8a6;
+    --bg: #f8faff;
+    --bg-card: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --shadow: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+    --shadow-xl: 0 24px 64px rgba(0,0,0,.16);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    gap: 2rem;
+    transition: box-shadow .3s;
+  }
+
+  nav.scrolled { box-shadow: var(--shadow); }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: .6rem;
+    text-decoration: none; flex-shrink: 0;
+  }
+
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--primary), var(--purple));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .nav-logo-text { font-weight: 700; font-size: .95rem; color: var(--text); line-height: 1.2; }
+  .nav-logo-sub { font-size: .72rem; color: var(--text-muted); font-weight: 400; }
+
+  .nav-links {
+    display: flex; gap: .25rem; flex: 1;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none; font-size: .85rem; font-weight: 500;
+    color: var(--text-muted);
+    padding: .4rem .75rem;
+    border-radius: var(--radius-xs);
+    transition: all .2s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff !important;
+    padding: .5rem 1.25rem !important;
+    border-radius: 99px !important;
+    box-shadow: 0 2px 8px rgba(26,86,219,.3);
+  }
+
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,86,219,.4) !important; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    padding: 6rem 2rem 4rem;
+    display: flex; align-items: center;
+    background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0fdf9 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%; left: -20%;
+    width: 80%; height: 80%;
+    background: radial-gradient(circle, rgba(26,86,219,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; right: -10%;
+    width: 60%; height: 60%;
+    background: radial-gradient(circle, rgba(139,92,246,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: .4rem 1rem;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hero-badge span { 
+    width: 8px; height: 8px; background: var(--success); 
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .6; transform: scale(1.3); }
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 span {
+    background: linear-gradient(135deg, var(--primary), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem; color: var(--text-muted);
+    max-width: 480px; margin-bottom: 2.5rem; line-height: 1.75;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .85rem 2rem; border-radius: 99px;
+    font-weight: 600; font-size: .95rem;
+    cursor: pointer; border: none;
+    transition: all .25s; text-decoration: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 20px rgba(26,86,219,.35);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,86,219,.45); }
+
+  .btn-secondary {
+    background: white; color: var(--text);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+  .hero-stats {
+    display: flex; gap: 2rem; margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-stat { display: flex; flex-direction: column; }
+  .hero-stat-num { font-size: 1.6rem; font-weight: 800; color: var(--text); }
+  .hero-stat-label { font-size: .8rem; color: var(--text-muted); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .hero-card-main {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .hero-card-sm {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: .75rem;
+    font-size: .85rem;
+  }
+
+  .hero-cards-row { display: flex; gap: 1rem; }
+  .hero-card-sm { flex: 1; }
+
+  .card-icon-wrap {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+
+  .mock-map {
+    height: 120px;
+    background: linear-gradient(135deg, #dbeafe, #ede9fe);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mock-map::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,.3) 20px, rgba(255,255,255,.3) 21px),
+      repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,.3) 20px, rgba(255,255,255,.3) 21px);
+  }
+
+  .map-pin {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 5rem 2rem; }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .8rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--primary);
+    background: var(--primary-light);
+    padding: .35rem .85rem; border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800; line-height: 1.2; letter-spacing: -.02em;
+    margin-bottom: .75rem;
+  }
+
+  .section-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+
+  /* ===== MODULE TABS ===== */
+  .modules-section { background: white; }
+
+  .module-tabs {
+    display: flex; gap: .5rem; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 3rem;
+    background: var(--bg);
+    padding: .5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .module-tab {
+    display: flex; align-items: center; gap: .5rem;
+    padding: .65rem 1.1rem;
+    border-radius: var(--radius-sm);
+    font-size: .85rem; font-weight: 600;
+    cursor: pointer; border: none; background: transparent;
+    color: var(--text-muted); transition: all .2s;
+  }
+
+  .module-tab:hover { color: var(--text); background: white; }
+
+  .module-tab.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: var(--shadow);
+  }
+
+  .module-tab .tab-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  .module-content { display: none; animation: fadeIn .35s ease; }
+  .module-content.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .module-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+
+  .module-layout.reverse { direction: rtl; }
+  .module-layout.reverse > * { direction: ltr; }
+
+  .module-tag {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    padding: .35rem .85rem; border-radius: 99px;
+    margin-bottom: 1.25rem;
+  }
+
+  h3 { font-size: 1.75rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 1rem; line-height: 1.25; }
+
+  .module-desc { color: var(--text-muted); line-height: 1.75; margin-bottom: 1.75rem; }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: .65rem;
+    font-size: .9rem; color: var(--text-muted);
+  }
+
+  .feature-list li .check {
+    width: 20px; height: 20px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* Module Mock UIs */
+  .module-mock {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .mock-header {
+    display: flex; align-items: center; gap: .5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mock-dots { display: flex; gap: .35rem; }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  .mock-title-bar { flex: 1; height: 10px; background: var(--border); border-radius: 99px; }
+
+  /* Map mock */
+  .map-mock-full {
+    height: 200px;
+    background: linear-gradient(160deg, #dbeafe 0%, #e0f2fe 40%, #dcfce7 100%);
+    border-radius: 10px;
+    position: relative; overflow: hidden; margin-bottom: 1rem;
+  }
+
+  .map-mock-full::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(255,255,255,.4) 24px, rgba(255,255,255,.4) 25px),
+      repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(255,255,255,.4) 24px, rgba(255,255,255,.4) 25px);
+  }
+
+  .map-road-h {
+    position: absolute; left: 0; right: 0;
+    height: 3px; background: rgba(255,255,255,.7);
+  }
+
+  .map-road-v {
+    position: absolute; top: 0; bottom: 0;
+    width: 3px; background: rgba(255,255,255,.7);
+  }
+
+  .report-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .6rem .8rem;
+    background: white; border-radius: var(--radius-xs);
+    font-size: .82rem; margin-bottom: .5rem;
+    border: 1px solid var(--border);
+  }
+
+  .report-status {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  .report-text { flex: 1; color: var(--text); font-weight: 500; }
+  .report-time { color: var(--text-light); font-size: .75rem; }
+
+  /* Stats mock */
+  .stats-grid-mock {
+    display: grid; grid-template-columns: 1fr 1fr; gap: .75rem;
+  }
+
+  .stat-card-mock {
+    background: white; border-radius: var(--radius-sm);
+    padding: 1rem; border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .stat-num-mock { font-size: 1.5rem; font-weight: 800; margin-bottom: .2rem; }
+  .stat-label-mock { font-size: .75rem; color: var(--text-muted); }
+
+  .progress-row { display: flex; flex-direction: column; gap: .65rem; margin-top: 1rem; }
+
+  .progress-item { }
+  .progress-label { display: flex; justify-content: space-between; font-size: .8rem; margin-bottom: .3rem; }
+  .progress-label span:first-child { color: var(--text); font-weight: 500; }
+  .progress-label span:last-child { color: var(--text-muted); }
+  .progress-bar { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+
+  /* Career mock */
+  .job-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .75rem; background: white; border-radius: var(--radius-xs);
+    border: 1px solid var(--border); margin-bottom: .5rem;
+  }
+
+  .job-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .job-title { font-size: .85rem; font-weight: 600; color: var(--text); }
+  .job-company { font-size: .75rem; color: var(--text-muted); }
+  .job-badge { margin-left: auto; font-size: .72rem; font-weight: 600; padding: .2rem .6rem; border-radius: 99px; }
+
+  /* Calendar mock */
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .cal-day {
+    text-align: center; padding: .35rem .2rem;
+    font-size: .75rem; border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .cal-day.header { font-weight: 700; color: var(--text-muted); }
+  .cal-day:not(.header):hover { background: var(--primary-light); color: var(--primary); }
+  .cal-day.today { background: var(--primary); color: white; font-weight: 700; }
+  .cal-day.has-event { position: relative; }
+  .cal-day.has-event::after {
+    content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 4px; background: var(--accent); border-radius: 50%;
+  }
+
+  .event-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .6rem .8rem; background: white; border-radius: var(--radius-xs);
+    border: 1px solid var(--border); margin-bottom: .4rem;
+    border-left: 3px solid;
+  }
+
+  /* Mentor mock */
+  .mentor-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .75rem; background: white; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); margin-bottom: .5rem;
+  }
+
+  .mentor-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .85rem; flex-shrink: 0;
+  }
+
+  .mentor-name { font-size: .88rem; font-weight: 600; color: var(--text); }
+  .mentor-info { font-size: .75rem; color: var(--text-muted); }
+  .mentor-badge { margin-left: auto; font-size: .72rem; font-weight: 600; padding: .25rem .65rem; border-radius: 99px; }
+
+  /* Points mock */
+  .points-header {
+    display: flex; align-items: center; gap: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border-radius: var(--radius-sm); padding: 1.25rem;
+    color: white; margin-bottom: 1rem;
+  }
+
+  .points-num { font-size: 2.5rem; font-weight: 900; }
+  .points-label { font-size: .85rem; opacity: .85; }
+
+  .points-action {
+    display: flex; align-items: center; gap: .6rem;
+    padding: .6rem .8rem; background: white; border-radius: var(--radius-xs);
+    border: 1px solid var(--border); font-size: .82rem; margin-bottom: .4rem;
+  }
+
+  .points-val { margin-left: auto; font-weight: 700; color: var(--accent-dark); }
+
+  /* ===== STATS SECTION ===== */
+  .stats-section {
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 50%, var(--purple) 100%);
+    color: white; padding: 5rem 2rem;
+  }
+
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    max-width: 1000px; margin: 0 auto;
+  }
+
+  .stat-card {
+    text-align: center; padding: 2rem;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,.15);
+    transition: transform .2s;
+  }
+
+  .stat-card:hover { transform: translateY(-4px); }
+  .stat-card-icon { font-size: 2rem; margin-bottom: .75rem; }
+  .stat-card-num { font-size: 2.5rem; font-weight: 900; margin-bottom: .4rem; }
+  .stat-card-label { font-size: .85rem; opacity: .8; }
+
+  /* ===== HOW IT WORKS ===== */
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  }
+
+  .step-card {
+    text-align: center; padding: 2rem 1.5rem;
+    background: white; border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    position: relative; transition: all .25s;
+  }
+
+  .step-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+  .step-num {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--purple));
+    color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 800;
+    margin: 0 auto 1.25rem;
+  }
+
+  .step-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .step-title { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+  .step-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+
+  .step-connector {
+    position: absolute; top: 50px; right: -1.5rem;
+    width: 3rem; height: 2px; background: var(--border);
+    z-index: 1;
+  }
+
+  .step-card:last-child .step-connector { display: none; }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials-section { background: var(--bg); }
+
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    background: white; border-radius: var(--radius);
+    padding: 1.75rem; border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm); transition: all .25s;
+  }
+
+  .testimonial-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+  .testimonial-stars { color: var(--accent); font-size: 1rem; margin-bottom: 1rem; }
+  .testimonial-text { font-size: .9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem; font-style: italic; }
+
+  .testimonial-author { display: flex; align-items: center; gap: .75rem; }
+
+  .testimonial-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .85rem; flex-shrink: 0;
+  }
+
+  .testimonial-name { font-size: .88rem; font-weight: 700; color: var(--text); }
+  .testimonial-role { font-size: .75rem; color: var(--text-muted); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #0f172a; color: #94a3b8;
+    padding: 4rem 2rem 2rem;
+  }
+
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+    padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+
+  .footer-brand { }
+  .footer-logo { display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+  .footer-logo-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--purple));
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+
+  .footer-logo-text { font-weight: 700; color: white; font-size: 1rem; }
+  .footer-brand p { font-size: .85rem; line-height: 1.7; max-width: 280px; }
+
+  .footer-col h4 { color: white; font-weight: 600; font-size: .9rem; margin-bottom: 1rem; }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+  .footer-col ul a { font-size: .85rem; color: #64748b; text-decoration: none; transition: color .2s; }
+  .footer-col ul a:hover { color: white; }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .82rem;
+  }
+
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { color: #64748b; text-decoration: none; transition: color .2s; }
+  .footer-bottom-links a:hover { color: white; }
+
+  /* ===== REPORT FORM ===== */
+  .report-section { background: var(--primary-light); }
+
+  .report-form-card {
+    background: white; border-radius: var(--radius);
+    padding: 2.5rem; box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    max-width: 600px; margin: 0 auto;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: .45rem; }
+
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: .7rem 1rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-xs);
+    font-size: .9rem; color: var(--text);
+    background: var(--bg); transition: border-color .2s, box-shadow .2s;
+    font-family: inherit;
+  }
+
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,86,219,.12);
+    background: white;
+  }
+
+  .form-group textarea { resize: vertical; min-height: 90px; }
+
+  .form-btns { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+
+  /* ===== MISC ===== */
+  .tag-blue { background: var(--primary-light); color: var(--primary); }
+  .tag-green { background: #dcfce7; color: #15803d; }
+  .tag-purple { background: #f3e8ff; color: #7c3aed; }
+  .tag-orange { background: #fff7ed; color: #c2410c; }
+  .tag-pink { background: #fdf2f8; color: #be185d; }
+  .tag-teal { background: #f0fdfa; color: #0f766e; }
+  .tag-yellow { background: #fefce8; color: #854d0e; }
+
+  .icon-blue { background: var(--primary-light); }
+  .icon-green { background: #dcfce7; }
+  .icon-purple { background: #f3e8ff; }
+  .icon-orange { background: #fff7ed; }
+  .icon-pink { background: #fdf2f8; }
+  .icon-teal { background: #f0fdfa; }
+
+  /* ===== RESPONSIVENESS ===== */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .module-layout { grid-template-columns: 1fr; }
+    .module-layout.reverse { direction: ltr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: span 2; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: span 1; }
+    .hero-stats { flex-direction: column; gap: 1rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ===== ENTRANCE ANIMATIONS ===== */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🏙️</div>
+    <div>
+      <div class="nav-logo-text">Viitor cu adresă în Vaslui</div>
+      <div class="nav-logo-sub">Platformă digitală civică</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#module">Module</a></li>
+    <li><a href="#raportare">Raportare</a></li>
+    <li><a href="#transparenta">Transparență</a></li>
+    <li><a href="#cariera">Carieră</a></li>
+    <li><a href="#mentorat">Mentorat</a></li>
+    <li><a href="#contact" class="nav-cta">Înscrie-te</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span></span>
+        Platforma activă în Vaslui
+      </div>
+      <h1>Construim <span>Vasluiul</span> de mâine, azi</h1>
+      <p class="hero-desc">
+        O platformă digitală care conectează cetățenii, tinerii și administrația locală. Raportează probleme, urmărește proiecte, găsește oportunități și câștigă puncte pentru implicare civică.
+      </p>
+      <div class="hero-btns">
+        <a href="#raportare" class="btn btn-primary">🚩 Raportează o problemă</a>
+        <a href="#module" class="btn btn-secondary">🔍 Explorează platforma</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="247">0</span>
+          <span class="hero-stat-label">Sesizări rezolvate</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="340">0</span>
+          <span class="hero-stat-label">Utilizatori activi</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="38">0</span>
+          <span class="hero-stat-label">Mentori înregistrați</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="mock-header" style="margin-bottom:.75rem">
+          <div class="mock-dots">
+            <div class="mock-dot" style="background:#ff5f57"></div>
+            <div class="mock-dot" style="background:#febc2e"></div>
+            <div class="mock-dot" style="background:#28c840"></div>
+          </div>
+          <div class="mock-title-bar"></div>
+        </div>
+        <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:.75rem;">🗺️ Orașul în timp real</div>
+        <div class="mock-map">
+          <div class="map-road-h" style="top:35%"></div>
+          <div class="map-road-h" style="top:65%"></div>
+          <div class="map-road-v" style="left:30%"></div>
+          <div class="map-road-v" style="left:60%"></div>
+          <div class="map-pin" style="top:28%;left:40%;background:#ef4444"></div>
+          <div class="map-pin" style="top:55%;left:62%;background:#f59e0b"></div>
+          <div class="map-pin" style="top:42%;left:22%;background:#10b981"></div>
+          <div class="map-pin" style="top:70%;left:45%;background:#8b5cf6"></div>
+        </div>
+        <div class="report-item">
+          <div class="report-status" style="background:#ef4444"></div>
+          <span class="report-text">Groapă în carosabil — Str. Ștefan cel Mare</span>
+          <span class="report-time">2 min</span>
+        </div>
+        <div class="report-item">
+          <div class="report-status" style="background:#10b981"></div>
+          <span class="report-text">Iluminat reparat — Bd. Republicii</span>
+          <span class="report-time">1h</span>
+        </div>
+      </div>
+
+      <div class="hero-cards-row">
+        <div class="hero-card-sm">
+          <div class="card-icon-wrap icon-yellow">🏆</div>
+          <div>
+            <div style="font-weight:700;font-size:.85rem">Vaslui Activ</div>
+            <div style="font-size:.75rem;color:var(--text-muted)">450 puncte acumulate</div>
+          </div>
+        </div>
+        <div class="hero-card-sm">
+          <div class="card-icon-wrap icon-purple">🎓</div>
+          <div>
+            <div style="font-weight:700;font-size:.85rem">Mentor conectat</div>
+            <div style="font-size:.75rem;color:var(--text-muted)">3 sesiuni programate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BANNER -->
+<div class="stats-section">
+  <div class="stats-grid container fade-up">
+    <div class="stat-card">
+      <div class="stat-card-icon">🏙️</div>
+      <div class="stat-card-num" data-count="247">0</div>
+      <div class="stat-card-label">Probleme rezolvate</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">👥</div>
+      <div class="stat-card-num" data-count="1340">0</div>
+      <div class="stat-card-label">Cetățeni implicați</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">🎯</div>
+      <div class="stat-card-num" data-count="12">0</div>
+      <div class="stat-card-label">Proiecte active</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">⏱️</div>
+      <div class="stat-card-num" data-count="48" suffix="h">0</div>
+      <div class="stat-card-label">Timp mediu răspuns</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES SECTION -->
+<section class="modules-section" id="module">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">🧩 Cele 7 module</div>
+      <h2>Tot ce ai nevoie, într-un singur loc</h2>
+      <p class="section-desc">De la raportarea problemelor urbane până la mentorat și carieră — platforma acoperă toate nevoile cetățenilor vasluieni.</p>
+    </div>
+
+    <div class="module-tabs">
+      <button class="module-tab active" onclick="switchModule('oras')">
+        <div class="tab-dot" style="background:#ef4444"></div>Orașul în timp real
+      </button>
+      <button class="module-tab" onclick="switchModule('proiecte')">
+        <div class="tab-dot" style="background:#3b82f6"></div>Proiecte publice
+      </button>
+      <button class="module-tab" onclick="switchModule('admin')">
+        <div class="tab-dot" style="background:#10b981"></div>Administrație
+      </button>
+      <button class="module-tab" onclick="switchModule('cariera')">
+        <div class="tab-dot" style="background:#f59e0b"></div>Carieră
+      </button>
+      <button class="module-tab" onclick="switchModule('agenda')">
+        <div class="tab-dot" style="background:#8b5cf6"></div>Agenda
+      </button>
+      <button class="module-tab" onclick="switchModule('mentorat')">
+        <div class="tab-dot" style="background:#ec4899"></div>Mentorat
+      </button>
+      <button class="module-tab" onclick="switchModule('activ')">
+        <div class="tab-dot" style="background:#f59e0b"></div>Vaslui Activ
+      </button>
+    </div>
+
+    <!-- MODULE 1: Orașul în timp real -->
+    <div class="module-content active" id="mod-oras">
+      <div class="module-layout">
+        <div>
+          <span class="module-tag tag-blue">📍 Modul 1</span>
+          <h3>Orașul în timp real</h3>
+          <p class="module-desc">Raportează rapid orice problemă din spațiul public folosind o hartă interactivă. Urmărește statusul sesizărilor tale și vezi cum răspunde administrația în timp real.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Hartă interactivă cu sesizări marcate pe categorii</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Raportare defecțiuni iluminat, carosabil, mobilier urban</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Upload foto direct din telefon sau cameră</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Notificări automate privind statusul sesizării</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Vizibilitate publică — alți cetățeni pot upvota probleme</li>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div class="map-mock-full">
+            <div class="map-road-h" style="top:30%"></div>
+            <div class="map-road-h" style="top:60%"></div>
+            <div class="map-road-v" style="left:25%"></div>
+            <div class="map-road-v" style="left:55%"></div>
+            <div class="map-road-v" style="left:80%"></div>
+            <div class="map-pin" style="top:22%;left:35%;background:#ef4444;width:14px;height:14px"></div>
+            <div class="map-pin" style="top:50%;left:58%;background:#f59e0b;width:14px;height:14px"></div>
+            <div class="map-pin" style="top:38%;left:20%;background:#10b981;width:14px;height:14px"></div>
+            <div class="map-pin" style="top:68%;left:42%;background:#8b5cf6;width:14px;height:14px"></div>
+            <div class="map-pin" style="top:25%;left:72%;background:#ef4444;width:14px;height:14px"></div>
+          </div>
+          <div class="report-item">
+            <div class="report-status" style="background:#ef4444"></div>
+            <span class="report-text">Groapă carosabil — Str. Unirii</span>
+            <span class="report-time">Nou</span>
+          </div>
+          <div class="report-item">
+            <div class="report-status" style="background:#f59e0b"></div>
+            <span class="report-text">Semn rutier căzut — Bd. Republican</span>
+            <span class="report-time">În lucru</span>
+          </div>
+          <div class="report-item">
+            <div class="report-status" style="background:#10b981"></div>
+            <span class="report-text">Iluminat reparat — Str. Kogălniceanu</span>
+            <span class="report-time">Rezolvat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 2: Proiecte publice -->
+    <div class="module-content" id="mod-proiecte">
+      <div class="module-layout reverse">
+        <div>
+          <span class="module-tag tag-blue">🏗️ Modul 2</span>
+          <h3>Proiecte publice</h3>
+          <p class="module-desc">Urmărește stadiul tuturor proiectelor de investiție ale primăriei. De la propunere la finalizare — totul în transparență deplină.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Tracker proiecte cu stadii vizuale clare</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Bugete, termene și responsabili vizibili public</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Propuneri cetățenești pentru noi proiecte</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Consultări publice integrate</li>
+            <li><span class="check" style="background:#dbeafe;color:#1d4ed8">✓</span>Actualizări automate de la echipele de execuție</li>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.75rem;">
+            <div style="background:white;border-radius:10px;padding:1rem;border:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;">
+                <span style="font-size:.85rem;font-weight:700">Reabilitare Parc Central</span>
+                <span style="font-size:.75rem;font-weight:600;background:#dcfce7;color:#15803d;padding:.2rem .6rem;border-radius:99px">În execuție</span>
+              </div>
+              <div class="progress-label"><span>Progres</span><span>72%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:72%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.4rem">Termen: Oct 2026 · 850.000 lei</div>
+            </div>
+            <div style="background:white;border-radius:10px;padding:1rem;border:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;">
+                <span style="font-size:.85rem;font-weight:700">Modernizare Str. Ștefan cel Mare</span>
+                <span style="font-size:.75rem;font-weight:600;background:#fef9c3;color:#854d0e;padding:.2rem .6rem;border-radius:99px">Licitație</span>
+              </div>
+              <div class="progress-label"><span>Progres</span><span>25%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:25%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.4rem">Termen: Mar 2027 · 2.1M lei</div>
+            </div>
+            <div style="background:white;border-radius:10px;padding:1rem;border:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;">
+                <span style="font-size:.85rem;font-weight:700">Pistă de biciclete Centru — Gară</span>
+                <span style="font-size:.75rem;font-weight:600;background:#dbeafe;color:#1e40af;padding:.2rem .6rem;border-radius:99px">Planificat</span>
+              </div>
+              <div class="progress-label"><span>Progres</span><span>10%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:10%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.4rem">Termen: 2027 · 430.000 lei</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 3: Administrație transparentă -->
+    <div class="module-content" id="mod-admin">
+      <div class="module-layout">
+        <div>
+          <span class="module-tag tag-green">📊 Modul 3</span>
+          <h3>Administrație transparentă</h3>
+          <p class="module-desc">Indicatori actualizați automat despre performanța administrației locale. Cetățenii pot vedea clar cât de rapid și eficient sunt gestionate sesizările și problemele orașului.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#dcfce7;color:#15803d">✓</span>Dashboard cu KPIs actualizați în timp real</li>
+            <li><span class="check" style="background:#dcfce7;color:#15803d">✓</span>Timp mediu de răspuns și rată de rezolvare</li>
+            <li><span class="check" style="background:#dcfce7;color:#15803d">✓</span>Categorii de probleme și distribuție pe zone</li>
+            <li><span class="check" style="background:#dcfce7;color:#15803d">✓</span>Rapoarte lunare descărcabile</li>
+            <li><span class="check" style="background:#dcfce7;color:#15803d">✓</span>Comparații cu perioadele anterioare</li>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div class="stats-grid-mock">
+            <div class="stat-card-mock">
+              <div class="stat-num-mock" style="color:#10b981">247</div>
+              <div class="stat-label-mock">Rezolvate</div>
+            </div>
+            <div class="stat-card-mock">
+              <div class="stat-num-mock" style="color:#3b82f6">34</div>
+              <div class="stat-label-mock">În lucru</div>
+            </div>
+            <div class="stat-card-mock">
+              <div class="stat-num-mock" style="color:#f59e0b">48h</div>
+              <div class="stat-label-mock">Timp mediu</div>
+            </div>
+            <div class="stat-card-mock">
+              <div class="stat-num-mock" style="color:#8b5cf6">87%</div>
+              <div class="stat-label-mock">Rată rezolvare</div>
+            </div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-item">
+              <div class="progress-label"><span>Iluminat public</span><span>94%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:94%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Carosabil</span><span>71%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:71%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Spații verzi</span><span>82%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:82%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 4: Carieră -->
+    <div class="module-content" id="mod-cariera">
+      <div class="module-layout reverse">
+        <div>
+          <span class="module-tag tag-orange">💼 Modul 4</span>
+          <h3>Carieră și oportunități</h3>
+          <p class="module-desc">Un hub centralizat de oportunități profesionale pentru tinerii vasluieni. De la joburi full-time la stagii de practică și granturi — totul filtrat pe Vaslui.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#fff7ed;color:#c2410c">✓</span>Joburi, internshipuri, stagii și voluntariat local</li>
+            <li><span class="check" style="background:#fff7ed;color:#c2410c">✓</span>Granturi și finanțări dedicate tinerilor</li>
+            <li><span class="check" style="background:#fff7ed;color:#c2410c">✓</span>Evenimente de networking și job fairs</li>
+            <li><span class="check" style="background:#fff7ed;color:#c2410c">✓</span>Alerte email pentru noi oportunități</li>
+            <li><span class="check" style="background:#fff7ed;color:#c2410c">✓</span>Profil profesional și CV builder integrat</li>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div class="job-item">
+            <div class="job-icon" style="background:#fff7ed">🏢</div>
+            <div>
+              <div class="job-title">Developer Junior</div>
+              <div class="job-company">Primăria Vaslui · Full-time</div>
+            </div>
+            <div class="job-badge" style="background:#dcfce7;color:#15803d">Nou</div>
+          </div>
+          <div class="job-item">
+            <div class="job-icon" style="background:#f3e8ff">🎨</div>
+            <div>
+              <div class="job-title">Internship Design</div>
+              <div class="job-company">Studio Local · 3 luni</div>
+            </div>
+            <div class="job-badge" style="background:#fef9c3;color:#854d0e">Stagiu</div>
+          </div>
+          <div class="job-item">
+            <div class="job-icon" style="background:#ecfdf5">🤝</div>
+            <div>
+              <div class="job-title">Voluntar Ecologizare</div>
+              <div class="job-company">ONG Verde · Weekend</div>
+            </div>
+            <div class="job-badge" style="background:#f0fdfa;color:#0f766e">Voluntariat</div>
+          </div>
+          <div class="job-item">
+            <div class="job-icon" style="background:#eff6ff">💰</div>
+            <div>
+              <div class="job-title">Grant Start-up 10.000 lei</div>
+              <div class="job-company">Tineret Vaslui</div>
+            </div>
+            <div class="job-badge" style="background:#eff6ff;color:#1d4ed8">Grant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 5: Agenda -->
+    <div class="module-content" id="mod-agenda">
+      <div class="module-layout">
+        <div>
+          <span class="module-tag tag-purple">📅 Modul 5</span>
+          <h3>Agenda Tinerilor</h3>
+          <p class="module-desc">Un calendar digital centralizat cu toate evenimentele relevante pentru tinerii din Vaslui. Înregistrare directă din platformă și notificări automate cu 24h înainte.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#f3e8ff;color:#7c3aed">✓</span>Calendar unificat — ateliere, mentorat, voluntariat</li>
+            <li><span class="check" style="background:#f3e8ff;color:#7c3aed">✓</span>Consultări publice și evenimente culturale</li>
+            <li><span class="check" style="background:#f3e8ff;color:#7c3aed">✓</span>Înscriere în 2 click-uri, confirmare automată</li>
+            <li><span class="check" style="background:#f3e8ff;color:#7c3aed">✓</span>Notificări push și email configurabile</li>
+            <li><span class="check" style="background:#f3e8ff;color:#7c3aed">✓</span>Export în Google Calendar / Apple Calendar</li>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div style="font-size:.8rem;font-weight:700;text-align:center;margin-bottom:.75rem;color:var(--text)">Iunie 2026</div>
+          <div class="cal-grid">
+            <div class="cal-day header">Lu</div>
+            <div class="cal-day header">Ma</div>
+            <div class="cal-day header">Mi</div>
+            <div class="cal-day header">Jo</div>
+            <div class="cal-day header">Vi</div>
+            <div class="cal-day header">Sb</div>
+            <div class="cal-day header">Du</div>
+            <div class="cal-day"></div>
+            <div class="cal-day">1</div>
+            <div class="cal-day">2</div>
+            <div class="cal-day has-event">3</div>
+            <div class="cal-day has-event">4</div>
+            <div class="cal-day">5</div>
+            <div class="cal-day">6</div>
+            <div class="cal-day today">7</div>
+            <div class="cal-day">8</div>
+            <div class="cal-day has-event">9</div>
+            <div class="cal-day">10</div>
+            <div class="cal-day has-event">11</div>
+            <div class="cal-day">12</div>
+            <div class="cal-day">13</div>
+            <div class="cal-day">14</div>
+            <div class="cal-day has-event">15</div>
+            <div class="cal-day">16</div>
+            <div class="cal-day">17</div>
+            <div class="cal-day">18</div>
+            <div class="cal-day has-event">19</div>
+            <div class="cal-day">20</div>
+            <div class="cal-day">21</div>
+          </div>
+          <div class="event-item" style="border-left-color:#8b5cf6">
+            <span style="font-size:1rem">🎯</span>
+            <div>
+              <div style="font-size:.82rem;font-weight:600">Atelier orientare profesională</div>
+              <div style="font-size:.73rem;color:var(--text-muted)">9 Iun · 16:00 · Casa de Cultură</div>
+            </div>
+          </div>
+          <div class="event-item" style="border-left-color:#10b981">
+            <span style="font-size:1rem">🌿</span>
+            <div>
+              <div style="font-size:.82rem;font-weight:600">Ecologizare Parc Copou</div>
+              <div style="font-size:.73rem;color:var(--text-muted)">11 Iun · 10:00 · Parc</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 6: Mentorat -->
+    <div class="module-content" id="mod-mentorat">
+      <div class="module-layout reverse">
+        <div>
+          <span class="module-tag tag-pink">🎓 Modul 6</span>
+          <h3>Student pentru Vaslui</h3>
+          <p class="module-desc">Platforma de mentorat care conectează liceenii din Vaslui cu studenții vasluieni plecați la facultate. O rețea de sprijin și transfer real de experiență.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#fdf2f8;color:#be185d">✓</span>Profiluri educaționale mentori și mentorați</li>
+            <li><span class="check" style="background:#fdf2f8;color:#be185d">✓</span>Matching automat după domeniu de interes</li>
+            <li><span class="check" style="background:#fdf2f8;color:#be185d">✓</span>Chat și sesiuni video integrate</li>
+            <li><span class="check" style="background:#fdf2f8;color:#be185d">✓</span>Resurse despre admitere și viață universitară</li>
+            <li><span class="check" style="background:#fdf2f8;color:#be185d">✓</span>Rețea alumni vasluieni activi</div>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:.75rem">Mentori disponibili</div>
+          <div class="mentor-item">
+            <div class="mentor-avatar" style="background:#fdf2f8;color:#be185d">AM</div>
+            <div>
+              <div class="mentor-name">Andrei M.</div>
+              <div class="mentor-info">Informatică · UAIC Iași · Anul 3</div>
+            </div>
+            <div class="mentor-badge" style="background:#dcfce7;color:#15803d">Disponibil</div>
+          </div>
+          <div class="mentor-item">
+            <div class="mentor-avatar" style="background:#eff6ff;color:#1d4ed8">IB</div>
+            <div>
+              <div class="mentor-name">Ioana B.</div>
+              <div class="mentor-info">Medicină · UMF Iași · Anul 4</div>
+            </div>
+            <div class="mentor-badge" style="background:#dcfce7;color:#15803d">Disponibil</div>
+          </div>
+          <div class="mentor-item">
+            <div class="mentor-avatar" style="background:#f3e8ff;color:#7c3aed">RC</div>
+            <div>
+              <div class="mentor-name">Radu C.</div>
+              <div class="mentor-info">Drept · UAIC Iași · Masterat</div>
+            </div>
+            <div class="mentor-badge" style="background:#fef9c3;color:#854d0e">Ocupat azi</div>
+          </div>
+          <div class="mentor-item">
+            <div class="mentor-avatar" style="background:#fff7ed;color:#c2410c">ME</div>
+            <div>
+              <div class="mentor-name">Maria E.</div>
+              <div class="mentor-info">Arhitectură · UAUIM Buc. · Anul 2</div>
+            </div>
+            <div class="mentor-badge" style="background:#dcfce7;color:#15803d">Disponibil</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 7: Vaslui Activ -->
+    <div class="module-content" id="mod-activ">
+      <div class="module-layout">
+        <div>
+          <span class="module-tag tag-yellow">🏆 Modul 7</span>
+          <h3>Vaslui Activ</h3>
+          <p class="module-desc">Un sistem de gamification civică — fiecare acțiune pozitivă aduce puncte. Cu cât ești mai implicat în comunitate, cu atât urci în clasamentul vasluienilor activi.</p>
+          <ul class="feature-list">
+            <li><span class="check" style="background:#fefce8;color:#854d0e">✓</span>Puncte pentru sesizări, voluntariat, mentorat</li>
+            <li><span class="check" style="background:#fefce8;color:#854d0e">✓</span>Clasament lunar și badges de recunoaștere</li>
+            <li><span class="check" style="background:#fefce8;color:#854d0e">✓</span>Recompense de la parteneri locali</li>
+            <li><span class="check" style="background:#fefce8;color:#854d0e">✓</span>Certificate de implicare civică</li>
+            <li><span class="check" style="background:#fefce8;color:#854d0e">✓</span>Misiuni săptămânale cu puncte bonus</li>
+          </ul>
+        </div>
+        <div class="module-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <div class="mock-dot" style="background:#ff5f57"></div>
+              <div class="mock-dot" style="background:#febc2e"></div>
+              <div class="mock-dot" style="background:#28c840"></div>
+            </div>
+            <div class="mock-title-bar"></div>
+          </div>
+          <div class="points-header">
+            <div style="font-size:2rem">🏆</div>
+            <div>
+              <div class="points-num">1.250</div>
+              <div class="points-label">puncte Vaslui Activ · Top 5%</div>
+            </div>
+          </div>
+          <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:.6rem">Activitate recentă</div>
+          <div class="points-action">
+            <span>🚩</span>
+            <span>Sesizare validată — carosabil</span>
+            <span class="points-val">+50 pts</span>
+          </div>
+          <div class="points-action">
+            <span>🌿</span>
+            <span>Participare ecologizare parc</span>
+            <span class="points-val">+120 pts</span>
+          </div>
+          <div class="points-action">
+            <span>🎓</span>
+            <span>Sesiune mentorat completată</span>
+            <span class="points-val">+200 pts</span>
+          </div>
+          <div class="points-action">
+            <span>💡</span>
+            <span>Propunere proiect acceptată</span>
+            <span class="points-val">+300 pts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="cum-functioneaza">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">⚡ Cum funcționează</div>
+      <h2>4 pași simpli</h2>
+      <p class="section-desc">Platforma e gândită să fie accesibilă pentru orice cetățean, indiferent de competențe digitale.</p>
+    </div>
+    <div class="steps-grid fade-up">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon">👤</div>
+        <div class="step-title">Creează un cont</div>
+        <div class="step-desc">Înregistrare rapidă cu email sau cont Google. Profilul tău se sincronizează cu toate modulele platformei.</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔍</div>
+        <div class="step-title">Explorează & raportează</div>
+        <div class="step-desc">Folosește harta pentru a raporta probleme, urmărești proiecte sau explorezi oportunități de carieră.</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon">⚙️</div>
+        <div class="step-title">Administrația acționează</div>
+        <div class="step-desc">Sesizările ajung direct la departamentele responsabile. Primești notificări la fiecare actualizare de status.</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-icon">🏆</div>
+        <div class="step-title">Câștigă puncte & crești</div>
+        <div class="step-desc">Fiecare acțiune civică aduce puncte Vaslui Activ. Colectezi badge-uri și beneficiezi de recompense din comunitate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAPORTARE FORM -->
+<section class="report-section" id="raportare">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">🚩 Raportare rapidă</div>
+      <h2>Semnalează o problemă</h2>
+      <p class="section-desc">Completează formularul de mai jos. Sesizarea ajunge direct la departamentul responsabil din Primăria Vaslui.</p>
+    </div>
+    <div class="report-form-card fade-up">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nume complet</label>
+          <input type="text" placeholder="Ion Popescu">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="ion@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tipul problemei</label>
+        <select>
+          <option>Selectează categoria</option>
+          <option>🔦 Iluminat public defect</option>
+          <option>🛣️ Degradări carosabil / trotuare</option>
+          <option>🪑 Mobilier urban deteriorat</option>
+          <option>🌿 Spații verzi neîngrijite</option>
+          <option>🎨 Vandalism</option>
+          <option>⚠️ Altă problemă</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Adresa / locația</label>
+        <input type="text" placeholder="Str. Unirii nr. 12, lângă farmacia...">
+      </div>
+      <div class="form-group">
+        <label>Descriere</label>
+        <textarea placeholder="Descrie problema cât mai detaliat. Include informații despre gravitate, perioadă de timp, impact asupra comunității..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Foto (opțional)</label>
+        <input type="file" accept="image/*" style="padding:.5rem .75rem;cursor:pointer">
+      </div>
+      <div class="form-btns">
+        <button class="btn btn-secondary" type="button">Anulează</button>
+        <button class="btn btn-primary" type="button" onclick="submitReport()">🚩 Trimite sesizarea</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">💬 Comunitatea spune</div>
+      <h2>Voci din Vaslui</h2>
+      <p class="section-desc">Cetățenii care au folosit deja platforma și au văzut schimbarea.</p>
+    </div>
+    <div class="testimonials-grid fade-up">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">„Am raportat o groapă imensă pe strada mea vineri seara. Luni dimineața era deja marcată ca «în lucru». Nu credeam că o să funcționeze atât de rapid."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#dbeafe;color:#1d4ed8">MP</div>
+          <div>
+            <div class="testimonial-name">Mihai Paraschiv</div>
+            <div class="testimonial-role">Cetățean · Vaslui</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">„Prin modulul de mentorat am găsit un student la Info care m-a ajutat să înțeleg exact cum funcționează admiterea la Politehnică. Mi-a schimbat perspectiva."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#fdf2f8;color:#be185d">AI</div>
+          <div>
+            <div class="testimonial-name">Andreea Ionescu</div>
+            <div class="testimonial-role">Elevă cls. XII</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">„Am găsit un internship la o firmă locală prin secțiunea de carieră. Nu știam că există atâtea oportunități chiar în Vaslui. Acum nu mai plec la Cluj."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#f0fdfa;color:#0f766e">RS</div>
+          <div>
+            <div class="testimonial-name">Radu Stan</div>
+            <div class="testimonial-role">Student · An II</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">🏙️</div>
+          <div class="footer-logo-text">Viitor cu adresă în Vaslui</div>
+        </div>
+        <p>Platformă digitală civică dezvoltată în cadrul concursului „Primar pentru o zi" — Primăria Municipiului Vaslui, 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Module</h4>
+        <ul>
+          <li><a href="#">Orașul în timp real</a></li>
+          <li><a href="#">Proiecte publice</a></li>
+          <li><a href="#">Administrație</a></li>
+          <li><a href="#">Carieră</a></li>
+          <li><a href="#">Agenda Tinerilor</a></li>
+          <li><a href="#">Mentorat</a></li>
+          <li><a href="#">Vaslui Activ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Proiect</h4>
+        <ul>
+          <li><a href="#">Despre proiect</a></li>
+          <li><a href="#">Echipa</a></li>
+          <li><a href="#">Componente</a></li>
+          <li><a href="#">Plan implementare</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Primăria Vaslui</a></li>
+          <li><a href="#">Raportează o problemă</a></li>
+          <li><a href="#">Înscrie-te ca mentor</a></li>
+          <li><a href="#">Parteneri</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Viitor cu adresă în Vaslui · Concurs „Primar pentru o zi"</span>
+      <div class="footer-bottom-links">
+        <a href="#">Termeni</a>
+        <a href="#">Confidențialitate</a>
+        <a href="#">Accesibilitate</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== NAV SCROLL =====
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ===== MODULE TABS =====
+  function switchModule(name) {
+    document.querySelectorAll('.module-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.module-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('mod-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // ===== COUNTER ANIMATION =====
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  // ===== INTERSECTION OBSERVER =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Animate counters inside this element
+        entry.target.querySelectorAll('[data-count]').forEach(el => {
+          if (!el.dataset.animated) {
+            el.dataset.animated = '1';
+            animateCount(el);
+          }
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Animate hero counters on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero-stat-num[data-count]').forEach(el => animateCount(el));
+    }, 400);
+  });
+
+  // ===== SUBMIT REPORT =====
+  function submitReport() {
+    const btn = event.currentTarget;
+    btn.textContent = '✓ Sesizare trimisă!';
+    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '🚩 Trimite sesizarea';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+
+  // ===== NAV ACTIVE ON SCROLL =====
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
